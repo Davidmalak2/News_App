@@ -1,24 +1,21 @@
+
 import 'package:flutter/material.dart';
-import 'package:news_app/core/app_routes.dart';
-import 'package:news_app/features/view/screens/details_screen.dart';
+import 'package:news_app/features/models/news_model.dart';
 import 'package:news_app/features/view/screens/home_screen.dart';
+import 'package:news_app/features/view/screens/details_screen.dart';
 
-void main() {
-  runApp(const NewsApp());
-}
+abstract class AppRoutes {
+  static const String home = 'Home';
+  static const String details = 'Details';
 
-class NewsApp extends StatelessWidget {
-  const NewsApp({super.key});
+  static Map<String, WidgetBuilder> routes = {
+    home: (context) => const HomeScreen(),
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.home,
-      routes: {
-        AppRoutes.details: (context) => const DetailsScreen(),
-        AppRoutes.home: (context) => const HomeScreen(),
-      },
-    );
-  }
+    details: (context) {
+      final article =
+          ModalRoute.of(context)!.settings.arguments as Articles;
+
+      return DetailsScreen(article: article);
+    },
+  };
 }
