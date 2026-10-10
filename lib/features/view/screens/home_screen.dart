@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/core/app_routes.dart';
 
-String image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpHy...";
+String image = "https://ldc-tourism.com/_next/image?url=%2Fapi%2Fmedia%2Ffile%2Fldc-2f9c4bb0efd7e374c768-2400x1600.jpg&w=3840&q=90";
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
