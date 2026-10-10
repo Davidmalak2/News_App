@@ -1,45 +1,74 @@
+
 import 'package:flutter/material.dart';
+
+import 'package:news_app/features/models/news_model.dart';
 import 'package:news_app/features/view/screens/home_screen.dart';
 
 class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({super.key});
+  const DetailsScreen({
+    super.key,
+    required this.article,
+  });
 
-  @override
+  final Articles article;
+
+  @override   
   Widget build(BuildContext context) {
+    final imageUrl = article.urlToImage;
+
+    final validImageUrl = imageUrl != null &&
+            (imageUrl.startsWith('https://') ||
+                imageUrl.startsWith('http://'))
+        ? imageUrl
+        : fallbackImage;
+
     return Scaffold(
       backgroundColor: const Color(0xff202020),
       appBar: AppBar(
         backgroundColor: const Color(0xff202020),
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
       ),
-      body: const SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 10),
-              CustomImageNews(height: 250),
-              SizedBox(height: 12),
-              Text(
-                "Russian warship: Moskva sinks in Black Sea",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xffE4E6EB),
-                ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 20,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomImageNews(
+              height: 250,
+              image: validImageUrl,
+            ),
+            const SizedBox(height: 20),
+            Text(
+              article.author ?? 'Unknown author',
+              style: const TextStyle(
+                fontSize: 14,
+                color: Color(0xffB0B3B8),
               ),
-              SizedBox(height: 8),
-              Text(
-                "Europe",
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xffB0B3B8),
-                ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              article.title ?? 'No title available',
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Color(0xffE4E6EB),
               ),
-              SizedBox(height: 30),
-            ],
-          ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              article.description ?? 'No description available',
+              style: const TextStyle(
+                fontSize: 16,
+                height: 1.6,
+                color: Color(0xffE4E6EB),
+              ),
+            ),
+          ],
         ),
       ),
     );
